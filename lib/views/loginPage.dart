@@ -1,5 +1,4 @@
-import 'package:demo_iti/Widgets/bottom.dart';
-import 'package:demo_iti/Widgets/costum_text_field.dart';
+
 import 'package:demo_iti/views/signup_page.dart';
 import 'package:flutter/material.dart';
 
@@ -26,11 +25,17 @@ class LoginPage extends StatelessWidget {
                 style: TextStyle(fontSize: 16),
               ),
               Spacer(),
-              CostumTextField(prefixIcon: Icons.person, hintText: 'User Name'),
+              // CostumTextFormField(
+              //   prefixIcon: Icons.person,
+              //   hintText: 'User Name',
+              // ),
 
-              CostumTextField(prefixIcon: Icons.password, hintText: 'Password'),
+              // CostumTextFormField(
+              //   prefixIcon: Icons.password,
+              //   hintText: 'Password',
+              // ),
 
-              Bottom(text: "Login", color: Color(0xff9C28B2)),
+              // Bottom(text: "Login", color: Color(0xff9C28B2)),
               Spacer(),
 
               Text(

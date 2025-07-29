@@ -3,8 +3,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 class Auth {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  Auth();
-
   // Add your methods here, for example:
   Future<UserCredential> signUp(String email, String password) async {
     return await _auth.createUserWithEmailAndPassword(
@@ -18,5 +16,13 @@ class Auth {
       email: email,
       password: password,
     );
+  }
+
+  Future<void> logout() async {
+    return await _auth.signOut();
+  }
+
+  Future<void> sendVerfiyEmail() async {
+    return await _auth.currentUser!.sendEmailVerification();
   }
 }
