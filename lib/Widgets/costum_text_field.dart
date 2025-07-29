@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 
-class CostumTextField extends StatelessWidget {
-  const CostumTextField({
+class CostumTextFormField extends StatelessWidget {
+  const CostumTextFormField({
     super.key,
     required this.hintText,
     required this.prefixIcon,
-    required this.controller, required this.validator,
+    required this.controller,
+    required this.validator,
   });
   final String hintText;
   final IconData prefixIcon;

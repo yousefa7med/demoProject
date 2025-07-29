@@ -6,50 +6,53 @@ class Validator {
     return regExp.hasMatch(email ?? "");
   }
 
-  String? Function(String? value) emailValidator(email) {
-    return emailValidatorr;
+  String? Function(String? value) emailValidator() {
+    return (String? email) {
+      final trimmedEmail = email?.trim();
+      if (trimmedEmail == null || trimmedEmail.isEmpty) {
+        return "please Enter Your Email";
+      } else if (!_isEmail(trimmedEmail)) {
+        return "Please Enter an Email";
+      }
+      return null;
+    };
   }
 
-  String? emailValidatorr(String? email) {
-    final trimmedEmail = email?.trim();
-    if (trimmedEmail == null || trimmedEmail.isEmpty) {
-      return "please Enter Your Email";
-    } else if (!_isEmail(trimmedEmail)) {
-      return "Please Enter an Email";
-    }
-    return null;
+  String? Function(String? value) passwordValidator() {
+    return (String? password) {
+      final trimmedPassword = password?.trim();
+      if (trimmedPassword == null || trimmedPassword.isEmpty) {
+        return "please Enter Your Password";
+      } else if (password!.length < 8) {
+        return "Too Short";
+      }
+      return null;
+    };
   }
 
-  String? passwordValidator(String? password) {
-    final trimmedPassword = password?.trim();
-    if (trimmedPassword == null || trimmedPassword.isEmpty) {
-      return "please Enter Your Password";
-    } else if (password!.length < 8) {
-      return "Too Short";
-    }
-    return null;
-  }
-
-  String? confirmPasswordValidator({
-    required String? orgPassword,
-    required String? password,
+  String? Function(String? v) confirmPasswordValidator({
+    required String? Function() orgPasswordGetter,
   }) {
-    final trimmedPassword = password?.trim();
-    final trimmedOrgPassword = orgPassword?.trim();
-    if (trimmedPassword != trimmedOrgPassword) {
-      return "Make sure from your password";
-    }
-    return null;
+    return (password) {
+      final trimmedPassword = password?.trim();
+      final trimmedOrgPassword = orgPasswordGetter()?.trim();
+      if (trimmedPassword != trimmedOrgPassword) {
+        return "Make sure from your password";
+      }
+      return null;
+    };
   }
 
-  String? nameValidator(String? name) {
-    final trimmedName = name?.trim();
-    if (trimmedName == null || trimmedName.isEmpty) {
-      return "please Enter Your Name";
-    }
-    if (name!.length < 8) {
-      return "Too Short";
-    }
-    return null;
+  String? Function(String? v) nameValidator() {
+    return (String? name) {
+      final trimmedName = name?.trim();
+      if (trimmedName == null || trimmedName.isEmpty) {
+        return "please Enter Your Name";
+      }
+      if (name!.length < 8) {
+        return "Too Short";
+      }
+      return null;
+    };
   }
 }

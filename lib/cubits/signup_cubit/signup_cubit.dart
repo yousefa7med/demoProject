@@ -9,18 +9,17 @@ part 'signup_state.dart';
 
 class SignupCubit extends Cubit<SignupState> {
   SignupCubit() : super(SignupInitial());
-  TextEditingController emailController = TextEditingController();
-  TextEditingController userNameController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
-  TextEditingController confirmPasswordController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController userNameController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController confirmPasswordController =
+      TextEditingController();
+  final Auth auth = Auth();
   Future<UserCredential?> signup() async {
     emit(SignupLoading());
     UserCredential? user;
     try {
-      user = await Auth().signUp(
-        emailController.text,
-        passwordController.text,
-      );
+      user = await Auth().signUp(emailController.text, passwordController.text);
       emit(SignupSuccessed());
     } on FirebaseAuthException catch (e) {
       emit(SignupFailure());

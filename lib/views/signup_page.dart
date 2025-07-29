@@ -6,10 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
 class SignupPage extends StatelessWidget {
-   SignupPage({super.key});
+  const SignupPage({super.key});
   static const signupPageRoute = "rigisterPageRoute";
-final GlobalKey formKey=GlobalKey();
-final  validator=Validator();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,21 +25,7 @@ final  validator=Validator();
               Gap(30),
               Text("Create An Account", style: TextStyle(fontSize: 16)),
               Gap(20),
-              Form(
-                key:formKey ,
-                child: Column(
-                  children: [
-                    CostumTextField(hintText: 'Name', prefixIcon: Icons.person, controller: SignupCubit.get(context).userNameController, validator:validator.nameValidator(),),
-                    CostumTextField(hintText: 'Email', prefixIcon: Icons.email, controller:  SignupCubit.get(context).emailController, validator:validator.,),
-                    CostumTextField(hintText: 'Password', prefixIcon: Icons.password, controller:  SignupCubit.get(context).passwordController, validator:validator.,),
-                    CostumTextField(
-                      hintText: "Confirm Password",
-                      prefixIcon: Icons.password, controller:  SignupCubit.get(context).confirmPasswordController, validator:validator.,
-                    ),
-                    Bottom(text: 'Sign Up', color: Color(0xff9C28B2)),
-                  ],
-                ),
-              ),
+              SignupForm(),
               Gap(10),
               Text(
                 'Or',
@@ -52,9 +37,7 @@ final  validator=Validator();
                 text: "Sign In With Google",
                 textColor: Color(0xff9C28B2),
                 border: Border.all(color: Color(0xff9C28B2), width: 2),
-                onTap:() {
-                  
-                },
+                onTap: () {},
               ),
               Gap(40),
 
@@ -78,6 +61,60 @@ final  validator=Validator();
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+class SignupForm extends StatelessWidget {
+  SignupForm({super.key});
+
+  final GlobalKey<FormState> formKey = GlobalKey();
+  final validator = Validator();
+
+  @override
+  Widget build(BuildContext context) {
+    return Form(
+      key: formKey,
+      child: Column(
+        children: [
+          CostumTextFormField(
+            hintText: 'Name',
+            prefixIcon: Icons.person,
+            controller: SignupCubit.get(context).userNameController,
+            validator: validator.nameValidator(),
+          ),
+          CostumTextFormField(
+            hintText: 'Email',
+            prefixIcon: Icons.email,
+            controller: SignupCubit.get(context).emailController,
+            validator: validator.emailValidator(),
+          ),
+          CostumTextFormField(
+            hintText: 'Password',
+            prefixIcon: Icons.password,
+            controller: SignupCubit.get(context).passwordController,
+            validator: validator.passwordValidator(),
+          ),
+          CostumTextFormField(
+            hintText: "Confirm Password",
+            prefixIcon: Icons.password,
+            controller: SignupCubit.get(context).confirmPasswordController,
+            validator: validator.confirmPasswordValidator(
+              orgPasswordGetter:
+                  () => SignupCubit.get(context).confirmPasswordController.text,
+            ),
+          ),
+          Bottom(
+            text: 'Sign Up',
+            color: Color(0xff9C28B2),
+            onTap: () async{
+              if (formKey.currentState!.validate()) {
+                await SignupCubit.get(context).signup();
+              }
+            },
+          ),
+        ],
       ),
     );
   }
