@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "750059618575",
+    "project_id": "demp-iti",
+    "storage_bucket": "demp-iti.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:750059618575:android:94c6723387ff86fb38be7a",
+        "android_client_info": {
+          "package_name": "com.example.demo_iti"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC3GuTFHciwly9Jr9hRtvGBZCpHYNZGo48"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
