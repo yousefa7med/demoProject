@@ -1,16 +1,15 @@
-
 import 'package:demo_iti/Widgets/bottom.dart';
-import 'package:demo_iti/Widgets/costum_text_field.dart';
+import 'package:demo_iti/Widgets/app_text_field.dart';
 import 'package:demo_iti/cubits/signup_cubit/signup_cubit.dart';
 import 'package:demo_iti/helper/validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:demo_iti/helper/validator.dart';
 
 class SignupForm extends StatelessWidget {
   SignupForm({super.key});
 
   final GlobalKey<FormState> formKey = GlobalKey();
-  final validator = Validator();
 
   @override
   Widget build(BuildContext context) {
@@ -18,29 +17,29 @@ class SignupForm extends StatelessWidget {
       key: formKey,
       child: Column(
         children: [
-          CostumTextFormField(
+          AppTextFormField(
             hintText: 'Name',
             prefixIcon: Icons.person,
             controller: SignupCubit.get(context).userNameController,
-            validator: validator.nameValidator(),
+            validator: Validator.signupNameValidator(),
           ),
-          CostumTextFormField(
+          AppTextFormField(
             hintText: 'Email',
             prefixIcon: Icons.email,
             controller: SignupCubit.get(context).emailController,
-            validator: validator.emailValidator(),
+            validator: Validator.emailValidator(),
           ),
-          CostumTextFormField(
+          AppTextFormField(
             hintText: 'Password',
             prefixIcon: Icons.password,
             controller: SignupCubit.get(context).passwordController,
-            validator: validator.passwordValidator(),
+            validator: Validator.signupPasswordValidator(),
           ),
-          CostumTextFormField(
+          AppTextFormField(
             hintText: "Confirm Password",
             prefixIcon: Icons.password,
             controller: SignupCubit.get(context).confirmPasswordController,
-            validator: validator.confirmPasswordValidator(
+            validator: Validator.confirmPasswordValidator(
               orgPasswordGetter:
                   () => SignupCubit.get(context).confirmPasswordController.text,
             ),
@@ -48,10 +47,9 @@ class SignupForm extends StatelessWidget {
           Bottom(
             text: 'Sign Up',
             color: Color(0xff9C28B2),
-            onTap: () async{
+            onTap: () async {
               if (formKey.currentState!.validate()) {
-               UserCredential? user= await SignupCubit.get(context).signup();
-               
+                UserCredential? user = await SignupCubit.get(context).signup();
               }
             },
           ),

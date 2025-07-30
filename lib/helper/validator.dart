@@ -1,12 +1,12 @@
 class Validator {
-  bool _isEmail(String? email) {
+  static bool _isEmail(String? email) {
     const pattern =
         r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z]{2,})+$";
     final regExp = RegExp(pattern);
     return regExp.hasMatch(email ?? "");
   }
 
-  String? Function(String? value) emailValidator() {
+  static String? Function(String? value) emailValidator() {
     return (String? email) {
       final trimmedEmail = email?.trim();
       if (trimmedEmail == null || trimmedEmail.isEmpty) {
@@ -18,7 +18,7 @@ class Validator {
     };
   }
 
-  String? Function(String? value) passwordValidator() {
+  static String? Function(String? value) signupPasswordValidator() {
     return (String? password) {
       final trimmedPassword = password?.trim();
       if (trimmedPassword == null || trimmedPassword.isEmpty) {
@@ -30,7 +30,7 @@ class Validator {
     };
   }
 
-  String? Function(String? v) confirmPasswordValidator({
+  static String? Function(String? v) confirmPasswordValidator({
     required String? Function() orgPasswordGetter,
   }) {
     return (password) {
@@ -43,7 +43,7 @@ class Validator {
     };
   }
 
-  String? Function(String? v) nameValidator() {
+  static String? Function(String? v) signupNameValidator() {
     return (String? name) {
       final trimmedName = name?.trim();
       if (trimmedName == null || trimmedName.isEmpty) {
@@ -53,6 +53,15 @@ class Validator {
         return "Too Short";
       }
       return null;
+    };
+  }
+
+  static String? Function(String? v) loginPasswordValidator() {
+    return (password) {
+      final trimmedPassword = password?.trim();
+      if (trimmedPassword == null || trimmedPassword.isEmpty) {
+        return "please Enter Your Password";
+      }
     };
   }
 }

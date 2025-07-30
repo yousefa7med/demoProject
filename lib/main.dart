@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
       routes: {
         LoginPage.loginPageRoute:
             (context) => BlocProvider(
-              create: (context) => LoginCubit(),
+              create: (context) => LoginCubit(auth),
               child: LoginPage(),
             ),
         SignupPage.signupPageRoute:
@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
             ),
       },
       theme: AppTheme.lightTheme,
-      home: BlocProvider(create: (context) => LoginCubit(), child: LoginPage()),
+      home: BlocProvider(create: (context) => LoginCubit(auth), child: LoginPage()),
     );
   }
 }

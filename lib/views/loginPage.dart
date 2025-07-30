@@ -1,4 +1,8 @@
-
+import 'package:demo_iti/Widgets/bottom.dart';
+import 'package:demo_iti/Widgets/app_text_field.dart';
+import 'package:demo_iti/Widgets/password_text_field.dart';
+import 'package:demo_iti/cubits/login_cubit/login_cubit.dart';
+import 'package:demo_iti/helper/validator.dart';
 import 'package:demo_iti/views/signup_page.dart';
 import 'package:flutter/material.dart';
 
@@ -25,17 +29,21 @@ class LoginPage extends StatelessWidget {
                 style: TextStyle(fontSize: 16),
               ),
               Spacer(),
-              // CostumTextFormField(
-              //   prefixIcon: Icons.person,
-              //   hintText: 'User Name',
-              // ),
+              AppTextFormField(
+                prefixIcon: Icons.email,
+                hintText: 'Email',
+                controller: LoginCubit.get(context).emailController,
+                validator: Validator.emailValidator(),
+              ),
 
-              // CostumTextFormField(
-              //   prefixIcon: Icons.password,
-              //   hintText: 'Password',
-              // ),
+              PasswordTextFormField(
+                prefixIcon: Icons.password,
+                hintText: 'Password',
+                controller: LoginCubit.get(context).passwordController,
+                validator: Validator.loginPasswordValidator(),
+              ),
 
-              // Bottom(text: "Login", color: Color(0xff9C28B2)),
+              Bottom(text: "Login", color: Color(0xff9C28B2), onTap: () {}),
               Spacer(),
 
               Text(
