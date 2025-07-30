@@ -7,23 +7,23 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 part 'signup_state.dart';
 
 class SignupCubit extends Cubit<SignupState> {
-  SignupCubit() : super(SignupInitial());
+  SignupCubit(this.auth) : super(SignupInitial());
   final TextEditingController emailController = TextEditingController();
   final TextEditingController userNameController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController confirmPasswordController =
       TextEditingController();
-  final Auth auth = Auth();
+  final Auth auth;
   Future<UserCredential?> signup() async {
     UserCredential? user;
     try {
       user = await auth.signUp(emailController.text, passwordController.text);
       emit(SignupLoading());
+
       await auth.sendVerfiyEmail();
       emit(SignupSuccessed());
     } on FirebaseAuthException catch (e) {
       emit(SignupFailure(errMsg: e.message!));
-      
     }
 
     return user;

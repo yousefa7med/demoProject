@@ -5,6 +5,7 @@ class Auth {
 
   // Add your methods here, for example:
   Future<UserCredential> signUp(String email, String password) async {
+
     return await _auth.createUserWithEmailAndPassword(
       email: email,
       password: password,

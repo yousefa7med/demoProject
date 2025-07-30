@@ -1,10 +1,9 @@
-
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:demo_iti/Widgets/bottom.dart';
 
 import 'package:demo_iti/Widgets/signup_form.dart';
 import 'package:demo_iti/cubits/signup_cubit/signup_cubit.dart';
 import 'package:demo_iti/helper/snackbar_func.dart';
-
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -32,9 +31,23 @@ class SignupPage extends StatelessWidget {
               Gap(20),
               BlocListener<SignupCubit, SignupState>(
                 listener: (context, state) {
-                  if (state is SignupLoading) {
-                    showSnackBar(context, 'Please Verify Your Account');
-                  } else if (state is SignupFailure) {
+                  if (state is SignupSuccessed) {
+                    // showSnackBar(context, 'Please Verify Your Account');
+                    AwesomeDialog(
+                      context: context,
+                      dialogType: DialogType.infoReverse,
+                      animType: AnimType.scale,
+
+                      desc: 'Please Verify Your Account',
+
+                      btnCancelOnPress: () {},
+                      btnOkOnPress: () {
+                        Navigator.pop(context);
+                      },
+                    ).show();
+                  } 
+                  
+                  else if (state is SignupFailure) {
                     showSnackBar(context, state.errMsg);
                   }
                 },
