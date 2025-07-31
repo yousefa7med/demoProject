@@ -1,5 +1,6 @@
 import 'package:demo_iti/Widgets/bottom.dart';
 import 'package:demo_iti/Widgets/app_text_field.dart';
+import 'package:demo_iti/Widgets/password_text_field.dart';
 import 'package:demo_iti/cubits/signup_cubit/signup_cubit.dart';
 import 'package:demo_iti/helper/validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -29,13 +30,13 @@ class SignupForm extends StatelessWidget {
             controller: SignupCubit.get(context).emailController,
             validator: Validator.emailValidator(),
           ),
-          AppTextFormField(
+          PasswordTextFormField(
             hintText: 'Password',
             prefixIcon: Icons.password,
             controller: SignupCubit.get(context).passwordController,
             validator: Validator.signupPasswordValidator(),
           ),
-          AppTextFormField(
+          PasswordTextFormField(
             hintText: "Confirm Password",
             prefixIcon: Icons.password,
             controller: SignupCubit.get(context).confirmPasswordController,

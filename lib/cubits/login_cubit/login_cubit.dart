@@ -14,8 +14,22 @@ class LoginCubit extends Cubit<LoginState> {
   final TextEditingController passwordController = TextEditingController();
   static LoginCubit get(context) => BlocProvider.of(context);
 
-  Future<UserCredential> login(String email, String password) {
-   return auth.login(email, password);
+  Future<UserCredential?> login(String email, String password) async {
+    UserCredential? user;
+    try {
+      emit(LoginLoading());
+      user = await auth.login(email, password);
+      emit(LoginSuccessed());
+
+
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'invalid-credential') {
+        emit(LoginFailure(errMsg: "Email or Password isn't correct"));
+      } else {
+        emit(LoginFailure(errMsg: e.message!));
+      }
+    }
+    return user;
   }
 
   @override

@@ -17,7 +17,7 @@ class SignupCubit extends Cubit<SignupState> {
   Future<UserCredential?> signup() async {
     UserCredential? user;
     try {
-      user = await auth.signUp(emailController.text, passwordController.text);
+      user = await auth.signUp(emailController.text, passwordController.text,userNameController.text);
       emit(SignupLoading());
 
       await auth.sendVerfiyEmail();

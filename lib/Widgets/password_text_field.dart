@@ -37,16 +37,19 @@ class _PasswordTextFormFieldState extends State<PasswordTextFormField> {
           contentPadding: EdgeInsets.symmetric(vertical: 18),
           prefixIconColor: Color(0xff877986),
           prefixIcon: Icon(widget.prefixIcon, size: 28),
-          suffixIcon: IconButton(
-            onPressed: () {
-              setState(() {
-                obscureText = !obscureText;
-              });
-            },
-            icon:
-                obscureText
-                    ? Icon(Icons.remove_red_eye_rounded)
-                    : Icon(Icons.remove_red_eye_rounded),
+          suffixIcon: Padding(
+            padding: const EdgeInsets.only(right: 8.0),
+            child: IconButton(
+              onPressed: () {
+                setState(() {
+                  obscureText = !obscureText;
+                });
+              },
+              icon:
+                  obscureText
+                      ? Icon(Icons.visibility)
+                      : Icon(Icons.visibility_off),
+            ),
           ),
           filled: true,
           fillColor: Color(0xffEFE4F3),

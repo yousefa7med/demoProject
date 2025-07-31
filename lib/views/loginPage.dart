@@ -2,9 +2,11 @@ import 'package:demo_iti/Widgets/bottom.dart';
 import 'package:demo_iti/Widgets/app_text_field.dart';
 import 'package:demo_iti/Widgets/password_text_field.dart';
 import 'package:demo_iti/cubits/login_cubit/login_cubit.dart';
+import 'package:demo_iti/helper/snackbar_func.dart';
 import 'package:demo_iti/helper/validator.dart';
 import 'package:demo_iti/views/signup_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
@@ -29,21 +31,16 @@ class LoginPage extends StatelessWidget {
                 style: TextStyle(fontSize: 16),
               ),
               Spacer(),
-              AppTextFormField(
-                prefixIcon: Icons.email,
-                hintText: 'Email',
-                controller: LoginCubit.get(context).emailController,
-                validator: Validator.emailValidator(),
+              BlocListener<LoginCubit, LoginState>(
+                listener: (context, state) {
+                  if (state is LoginSuccessed) {
+                    showSnackBar(context, 'Successed');
+                  } else if (state is LoginFailure) {
+                    showSnackBar(context, state.errMsg);
+                  }
+                },
+                child: LoginForm(),
               ),
-
-              PasswordTextFormField(
-                prefixIcon: Icons.password,
-                hintText: 'Password',
-                controller: LoginCubit.get(context).passwordController,
-                validator: Validator.loginPasswordValidator(),
-              ),
-
-              Bottom(text: "Login", color: Color(0xff9C28B2), onTap: () {}),
               Spacer(),
 
               Text(
@@ -80,6 +77,47 @@ class LoginPage extends StatelessWidget {
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+class LoginForm extends StatelessWidget {
+  LoginForm({super.key});
+  final GlobalKey<FormState> formKey = GlobalKey();
+  @override
+  Widget build(BuildContext context) {
+    return Form(
+      key: formKey,
+      child: Column(
+        children: [
+          AppTextFormField(
+            prefixIcon: Icons.email,
+            hintText: 'Email',
+            controller: LoginCubit.get(context).emailController,
+            validator: Validator.emailValidator(),
+          ),
+
+          PasswordTextFormField(
+            prefixIcon: Icons.password,
+            hintText: 'Password',
+            controller: LoginCubit.get(context).passwordController,
+            validator: Validator.loginPasswordValidator(),
+          ),
+
+          Bottom(
+            text: "Login",
+            color: Color(0xff9C28B2),
+            onTap: () {
+              if (formKey.currentState!.validate()) {
+                LoginCubit.get(context).login(
+                  LoginCubit.get(context).emailController.text,
+                  LoginCubit.get(context).passwordController.text,
+                );
+              }
+            },
+          ),
+        ],
       ),
     );
   }
